@@ -67,12 +67,12 @@ converter.registerTypes([
 
 const VALUE_REGEX = /(?<number>-?\d+)(?<type>\w+)/;
 
-inputElement.addEventListener('input', update);
-inputElement.addEventListener('change', update);
-
 const update = () => {
 	outputElement.value = parseInputValue(inputElement.value);
 };
+
+inputElement.addEventListener('input', update);
+inputElement.addEventListener('change', update);
 
 const parseInputValue = value => {
 	const valueArray = inputValueToRowsArray(value);
