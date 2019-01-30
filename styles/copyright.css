@@ -1,3 +1,19 @@
+/*
+@styleguide
+
+@title Copyright
+
+```html
+<a
+  class="copyright"
+  href="https://github.com/vovanr/demo-components"
+  target="_blank"
+  rel="noopener"
+>
+  <span class="copyright__license">MIT ©</span> <span class="copyright__author">Vladimir Rodkin</span>
+</a>
+```
+*/
 .copyright {
   position: fixed;
   right: 0;
@@ -14,7 +30,7 @@
 }
 
 .copyright:hover {
-  opacity: 1;
+  opacity: 1 !important;
   text-decoration: none;
 }
 
@@ -22,7 +38,12 @@
 }
 
 .copyright__author {
+  display: none;
   text-decoration: underline;
+}
+
+.copyright:hover .copyright__author {
+  display: inline-block;
 }
 
 .copyright {
