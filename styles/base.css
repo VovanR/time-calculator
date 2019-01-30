@@ -1,0 +1,59 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: monospace;
+}
+
+
+input,
+textarea {
+  font-size: inherit;
+  font-family: inherit;
+  min-width: 0;
+  padding: 0.6em;
+  box-sizing: content-box;
+  border: 1px solid #ccc;
+  transition: border-color 0.15s ease;
+}
+
+input:focus,
+textarea:focus {
+  border-color: var(--primary-color);
+  outline: 0;
+  box-shadow: none;
+}
+
+input {
+}
+
+textarea {
+  resize: vertical;
+}
+
+
+.time-calculator {
+  display: grid;
+  grid-gap: 0.5em;
+  padding: 2em;
+}
+
+.time-calculator__input {
+  font-size: 2em;
+  background-color: #fff;
+}
+
+.time-calculator__output {
+  font-size: 2em;
+  background-color: #fbfbfb;
+}

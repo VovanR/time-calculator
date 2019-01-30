@@ -1,0 +1,35 @@
+{
+  "name": "time-calculator",
+  "version": "0.0.1",
+  "description": "Calculate time durations",
+  "license": "MIT",
+  "private": true,
+  "repository": "VovanR/time-calculator",
+  "author": "Vladimir Rodkin <mail@vovanr.com> (https://github.com/VovanR)",
+  "scripts": {
+    "start": "http-server .",
+    "test": "xo"
+  },
+  "browser": "./js/index.js",
+  "keywords": [],
+  "dependencies": {},
+  "devDependencies": {
+    "http-server": "^0.11.1",
+    "xo": "^0.24.0"
+  },
+  "bugs": {
+    "url": "https://github.com/VovanR/time-calculator/issues"
+  },
+  "homepage": "https://github.com/VovanR/time-calculator#readme",
+  "xo": {
+    "envs": [
+      "browser"
+    ],
+    "rules": {
+      "import/extensions": 0
+    },
+    "globals": [
+      "luxon"
+    ]
+  }
+}
