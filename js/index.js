@@ -67,10 +67,11 @@ converter.registerTypes([
 
 const VALUE_REGEX = /(?<number>-?\d+)(?<type>\w+)/;
 
-inputElement.addEventListener('input', ({target: {value}}) => update(value));
+inputElement.addEventListener('input', update);
+inputElement.addEventListener('change', update);
 
-const update = value => {
-	outputElement.value = parseInputValue(value);
+const update = () => {
+	outputElement.value = parseInputValue(inputElement.value);
 };
 
 const parseInputValue = value => {
