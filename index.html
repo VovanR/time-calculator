@@ -41,6 +41,20 @@
     <span class="copyright__license">MIT ©</span> <span class="copyright__author">Vladimir Rodkin</span>
   </a>
 
+  <script>
+    window.addEventListener('error', ({error: {message, stack}}) => {
+      const errorElement = document.createElement('div');
+      const errorMessageElement = document.createElement('div');
+      errorMessageElement.textContent = message;
+      const errorStackElement = document.createElement('div');
+      errorStackElement.textContent = stack;
+      errorElement.append(errorMessageElement);
+      errorElement.append(errorStackElement);
+      document.body.prepend(errorElement);
+      return false;
+    })
+  </script>
+
   <!--TODO: Remove Luxon-->
   <script defer src="https://moment.github.io/luxon/global/luxon.min.js"></script>
   <script type="module" src="js/index.js?v=1"></script>
