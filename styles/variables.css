@@ -1,3 +1,15 @@
 :root {
-  --primary-color: #333;
+  --font-family: monospace;
+  --app-font-size: 1em;
+  --control-label-font-size: 0.75rem;
+
+  --hue: 170;
+
+  --control-input-color: hsl(var(--hue), 50%, 15%);
+  --control-input-placeholder-color: hsl(var(--hue), 30%, 85%);
+  --control-input-border-width: 1px;
+  --control-input-border-color: hsl(var(--hue), 30%, 90%);
+  --control-input-focus-border-color: hsl(var(--hue), 50%, 40%);
+  --control-input-background-color: hsl(var(--hue), 50%, 100%);
+  --control-input-readonly-background-color: hsl(var(--hue), 30%, 98%);
 }

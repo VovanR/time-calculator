@@ -12,48 +12,57 @@ body {
 body {
   margin: 0;
   padding: 0;
-  font-family: monospace;
+  font-size: var(--app-font-size);
+  font-family: var(--font-family);
 }
 
 
 input,
 textarea {
+  color: var(--control-input-color);
   font-size: inherit;
   font-family: inherit;
   min-width: 0;
   padding: 0.6em;
   box-sizing: content-box;
-  border: 1px solid #ccc;
-  transition: border-color 0.15s ease;
+  border-width: var(--control-input-border-width);
+  border-style: solid;
+  border-color: var(--control-input-border-color);
+  transition: border-color ease 0.15s;
 }
 
 input:focus,
 textarea:focus {
-  border-color: var(--primary-color);
+  border-color: var(--control-input-focus-border-color);
   outline: 0;
   box-shadow: none;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--control-input-placeholder-color);
 }
 
 input {
 }
 
 textarea {
-  resize: vertical;
+  resize: none;
 }
 
 
 .time-calculator {
   display: grid;
-  grid-gap: 0.5em;
-  padding: 2em;
+  grid-gap: 2px;
+  padding: 2px;
 }
 
 .time-calculator__input {
   font-size: 2em;
-  background-color: #fff;
+  background-color: var(--control-input-background-color);
 }
 
 .time-calculator__output {
   font-size: 2em;
-  background-color: #fbfbfb;
+  background-color: var(--control-input-readonly-background-color);
 }
