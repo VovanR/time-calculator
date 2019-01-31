@@ -9,14 +9,6 @@ class Converter {
 		this._luxonRegister = new Map();
 	}
 
-	toAliasString() {
-
-	}
-
-	toLuxonObject() {
-
-	}
-
 	registerTypes(types) {
 		types.forEach(this.registerType.bind(this));
 	}
@@ -37,7 +29,25 @@ class Converter {
 
 const converter = new Converter();
 
+const getTypeByAlias = v => converter.getLuxonTypeByAlias(v);
+const getAliasByType = v => converter.getAliasByLuxonType(v);
+
 converter.registerTypes([
+	{
+		alias: 'y',
+		luxon: 'years',
+		factor: 365 * 24 * 60 * 60 * 1000
+	},
+	{
+		alias: 'm',
+		luxon: 'months',
+		factor: 30 * 24 * 60 * 60 * 1000
+	},
+	{
+		alias: 'w',
+		luxon: 'weeks',
+		factor: 7 * 24 * 60 * 60 * 1000
+	},
 	{
 		alias: 'd',
 		luxon: 'days',
@@ -71,63 +81,60 @@ const update = () => {
 	outputElement.value = parseInputValue(inputElement.value);
 };
 
-inputElement.addEventListener('input', update);
-inputElement.addEventListener('change', update);
-
 const parseInputValue = value => {
-	const valueArray = inputValueToRowsArray(value);
+	const valueRowsArray = value.split('\n');
 
-	const valueObjArray = valueArray.reduce((acc, i) => {
-		if (i.trim() === '') {
+	const valueObjectArray = valueRowsArray.reduce((acc, valueRow) => {
+		valueRow = valueRow.trim();
+
+		if (valueRow === '') {
 			return acc;
 		}
 
-		const a = valueItemToObj(i);
+		const valueRowObject = valueRowToObject(valueRow);
 
-		if (a) {
-			acc.push(a);
+		if (valueRowObject) {
+			acc.push(valueRowObject);
 		}
 
 		return acc;
 	}, []);
 
-	const valueLuxonArray = valueObjArray.map(valueObjToLuxon);
+	const valueLuxonArray = valueObjectArray.map(valueObjectToLuxon);
 
 	const resultLuxon = valueLuxonArray.reduce((acc, i) => {
 		return acc.plus(i);
 	}, luxon.Duration.fromObject({}));
 
-	const o = resultLuxon.normalize().toObject();
+	const normalizedObject = resultLuxon.normalize().toObject();
 
-	const s = Object.entries(o).reduce((acc, [key, value]) => {
+	const resultArray = Object.entries(normalizedObject).reduce((acc, [key, value]) => {
+		if (value === 0) {
+			return acc;
+		}
+
 		return acc.concat(`${value}${getAliasByType(key)}`);
 	}, []);
 
-	return s.join(' ');
+	return resultArray.join(' ');
 };
 
-const inputValueToRowsArray = value => value.split('\n');
-const valueRowStringToPartsArray = value => value.split(' ');
-const getTypeByAlias = v => converter.getLuxonTypeByAlias(v);
-const getAliasByType = v => converter.getAliasByLuxonType(v);
-const valueItemToObj = value => {
-	const isNegative = value.startsWith('-');
+const valueRowToObject = valueRow => {
+	const isNegative = valueRow.startsWith('-');
 	if (isNegative) {
-		value = value.substr(1);
+		valueRow = valueRow.substr(1);
 	}
 
-	return valueRowStringToPartsArray(value).reduce((acc, i) => {
-		if (i.trim() === '') {
+	const valueRowPartsArray = valueRow.split(' ');
+
+	return valueRowPartsArray.reduce((acc, value) => {
+		const valuePartsMatching = value.match(VALUE_REGEX);
+
+		if (valuePartsMatching === null) {
 			return acc;
 		}
 
-		const p = i.match(VALUE_REGEX);
-
-		if (!p) {
-			return acc;
-		}
-
-		const {number, type} = p.groups;
+		const {number, type} = valuePartsMatching.groups;
 		let n = Number(number);
 		if (isNegative) {
 			n = -n;
@@ -140,16 +147,20 @@ const valueItemToObj = value => {
 	}, {});
 };
 
-const valueObjToLuxon = value => luxon.Duration.fromObject(value);
+const valueObjectToLuxon = valueObject => luxon.Duration.fromObject(valueObject);
 
 update(inputElement.value);
+
+inputElement.addEventListener('input', update);
+inputElement.addEventListener('change', update);
 
 inputElement.addEventListener('keydown', autosize);
 
 function autosize() {
 	const el = this;
+
 	setTimeout(() => {
-		el.style.cssText = 'height:auto;';
-		el.style.cssText = 'height:' + el.scrollHeight + 'px';
+		el.style.cssText = 'height: auto;';
+		el.style.cssText = 'height: ' + el.scrollHeight + 'px';
 	}, 0);
 }
