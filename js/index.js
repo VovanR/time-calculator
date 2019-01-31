@@ -75,7 +75,7 @@ converter.registerTypes([
 	}
 ]);
 
-const VALUE_REGEX = /(?<number>-?\d+)(?<type>\w+)/;
+const VALUE_REGEX = /(-?\d+)(\w+)/;
 
 const update = () => {
 	outputElement.value = parseInputValue(inputElement.value);
@@ -134,7 +134,7 @@ const valueRowToObject = valueRow => {
 			return acc;
 		}
 
-		const {number, type} = valuePartsMatching.groups;
+		const [, number, type] = valuePartsMatching;
 		let n = Number(number);
 		if (isNegative) {
 			n = -n;
