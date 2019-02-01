@@ -3,13 +3,18 @@
   --app-font-size: 1em;
   --control-label-font-size: 0.75rem;
 
-  --hue: 170;
+  /* Color scheme: https://color.adobe.com/Birdfolio-Blues-color-theme-1945976/ */
+  --color1: #2a3941;
+  --color2: #3F5765;
+  --color3: #BDD4DE;
+  --color4: #EFEFEF;
+  --color5: #FF530D;
 
-  --control-input-color: hsl(var(--hue), 50%, 15%);
-  --control-input-placeholder-color: hsl(var(--hue), 30%, 85%);
+  --control-input-color: var(--color1);
+  --control-input-placeholder-color: var(--color3);
   --control-input-border-width: 1px;
-  --control-input-border-color: hsl(var(--hue), 30%, 90%);
-  --control-input-focus-border-color: hsl(var(--hue), 50%, 40%);
-  --control-input-background-color: hsl(var(--hue), 50%, 100%);
-  --control-input-readonly-background-color: hsl(var(--hue), 30%, 98%);
+  --control-input-border-color: var(--color3);
+  --control-input-focus-border-color: var(--color5);
+  --control-input-background-color: #fff;
+  --control-input-readonly-background-color: #fff;
 }

@@ -53,8 +53,8 @@ textarea {
 
 .time-calculator {
   display: grid;
-  grid-gap: 2px;
-  padding: 2px;
+  grid-gap: 3px;
+  padding: 3px;
 }
 
 .time-calculator__input {
