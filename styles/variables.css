@@ -5,10 +5,10 @@
 
   /* Color scheme: https://color.adobe.com/Birdfolio-Blues-color-theme-1945976/ */
   --color1: #2a3941;
-  --color2: #3F5765;
-  --color3: #BDD4DE;
-  --color4: #EFEFEF;
-  --color5: #FF530D;
+  --color2: #3f5765;
+  --color3: #bdd4de;
+  --color4: #efefef;
+  --color5: #ff530d;
 
   --control-input-color: var(--color1);
   --control-input-placeholder-color: var(--color3);

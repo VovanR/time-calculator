@@ -28,6 +28,7 @@ textarea {
   border-width: var(--control-input-border-width);
   border-style: solid;
   border-color: var(--control-input-border-color);
+  border-radius: 0;
   transition: border-color ease 0.15s;
 }
 
