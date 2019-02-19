@@ -1,3 +1,21 @@
 language: node_js
 node_js:
   - v11
+
+cache:
+  # cache both npm modules and Cypress binary
+  directories:
+    - ~/.npm
+    - ~/.cache
+  # install dependencies and check that Cypress can run
+  override:
+    - npm ci
+    - npm run cy:verify
+
+script:
+  # run all Cypress tests
+  - npm run cy:run
+  # after all tests finish running we need
+  # to kill all background jobs (like "npm start &")
+  # this avoids flake in Travis jobs
+  - kill $(jobs -p) || true

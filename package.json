@@ -8,12 +8,16 @@
   "author": "Vladimir Rodkin <mail@vovanr.com> (https://github.com/VovanR)",
   "scripts": {
     "start": "http-server .",
-    "test": "xo"
+    "test": "xo",
+    "cy:open": "cypress open",
+    "cy:verify": "cypress verify",
+    "cy:run": "cypress run"
   },
   "browser": "./js/index.js",
   "keywords": [],
   "dependencies": {},
   "devDependencies": {
+    "cypress": "3.1.5",
     "http-server": "^0.11.1",
     "xo": "^0.24.0"
   },
