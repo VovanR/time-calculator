@@ -1,6 +1,7 @@
 # time-calculator
 
 [![XO code style][codestyle-image]][codestyle-url]
+[![Cypress.io tests][cypress-image]][cypress-url]
 
 [![Build Status][travis-image]][travis-url]
 [![Dependency Status][depstat-image]][depstat-url]
@@ -28,3 +29,6 @@ MIT © [Vladimir Rodkin](https://github.com/VovanR)
 
 [depstat-dev-url]: https://david-dm.org/VovanR/time-calculator
 [depstat-dev-image]: https://david-dm.org/VovanR/time-calculator/dev-status.svg?style=flat-square
+
+[cypress-url]: https://cypress.io
+[cypress-image]: https://img.shields.io/badge/cypress.io-tests-green.svg?style=flat-square
