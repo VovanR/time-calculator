@@ -8,13 +8,17 @@
   "author": "Vladimir Rodkin <mail@vovanr.com> (https://github.com/VovanR)",
   "scripts": {
     "start": "http-server .",
-    "test": "xo"
+    "test": "npm run lint && npm run test:testcafe",
+    "lint": "xo --plugin=testcafe --extend=\"plugin:testcafe/recommended\"",
+    "test:testcafe": "testcafe --assertion-timeout=1000 \"firefox:headless\" test-cafe/*.test.js --app \"http-server . -s\""
   },
   "browser": "./js/index.js",
   "keywords": [],
   "dependencies": {},
   "devDependencies": {
+    "eslint-plugin-testcafe": "^0.2.1",
     "http-server": "^0.11.1",
+    "testcafe": "^1.0.1",
     "xo": "^0.24.0"
   },
   "bugs": {
