@@ -1,5 +1,8 @@
 # time-calculator
 
+<img align="right" width="120" height="120"
+     src="./logo.svg" alt="Time Calculator logo">
+
 [![XO code style][codestyle-image]][codestyle-url]
 [![Tested with TestCafe][testcafe-image]][testcafe-url]
 
