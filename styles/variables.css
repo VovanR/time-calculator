@@ -1,6 +1,8 @@
 :root {
-  --font-family: monospace;
   --app-font-size: 1em;
+  /* Font stack from Bootstrap 4 */
+  --app-font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+
   --control-label-font-size: 0.75rem;
 
   /* Color scheme: https://color.adobe.com/Birdfolio-Blues-color-theme-1945976/ */
