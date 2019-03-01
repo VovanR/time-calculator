@@ -20,13 +20,9 @@ test('should loaded input focused', async t => {
 		.expect(inputElement.focused).eql(true);
 });
 
-test('should loaded with input placeholder demo', async t => {
+test('should loaded with placeholder demo', async t => {
 	await t
-		.expect(inputElement.getAttribute('placeholder')).eql(INPUT_PLACEHOLDER);
-});
-
-test('should loaded with output placeholder demo', async t => {
-	await t
+		.expect(inputElement.getAttribute('placeholder')).eql(INPUT_PLACEHOLDER)
 		.expect(outputElement.getAttribute('placeholder')).eql(OUTPUT_PLACEHOLDER);
 });
 
