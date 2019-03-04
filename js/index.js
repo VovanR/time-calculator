@@ -82,6 +82,10 @@ const update = () => {
 };
 
 const parseInputValue = value => {
+	if (value === '') {
+		return '';
+	}
+
 	const valueRowsArray = value.split('\n');
 
 	const valueObjectArray = valueRowsArray.reduce((acc, valueRow) => {
@@ -116,7 +120,13 @@ const parseInputValue = value => {
 		return acc.concat(`${value}${getAliasByType(key)}`);
 	}, []);
 
-	return resultArray.join(' ');
+	const resultString = resultArray.join(' ');
+
+	if (resultString !== '') {
+		return resultString;
+	}
+
+	return '0';
 };
 
 const valueRowToObject = valueRow => {

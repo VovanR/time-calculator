@@ -50,6 +50,18 @@ make coffee 10m`;
 		.expect(outputElement.value).eql('95m');
 });
 
+test('should show zero result', async t => {
+	const inputText = `15h 50m
+-9h 30m
+-5h 10m
+-1h
+-10m`;
+
+	await t
+		.typeText(inputElement, inputText)
+		.expect(outputElement.value).eql('0');
+});
+
 test('should have output input read only', async t => {
 	await t
 		.typeText(outputElement, '5h')
