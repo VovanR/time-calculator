@@ -1,5 +1,3 @@
-/* global luxon */
-
 const inputElement = document.querySelector('#time-calculator-input');
 const outputElement = document.querySelector('#time-calculator-output');
 
@@ -132,7 +130,7 @@ const parseInputValue = value => {
 const valueRowToObject = valueRow => {
 	const isNegative = valueRow.startsWith('-');
 	if (isNegative) {
-		valueRow = valueRow.substr(1);
+		valueRow = valueRow.slice(1);
 	}
 
 	const valueRowPartsArray = valueRow.split(' ');
@@ -144,7 +142,13 @@ const valueRowToObject = valueRow => {
 			return acc;
 		}
 
-		const [, number, type] = valuePartsMatching;
+		const [, number, typeAlias] = valuePartsMatching;
+
+		const type = getTypeByAlias(typeAlias);
+		if (!type) {
+			return acc;
+		}
+
 		let n = Number(number);
 		if (isNegative) {
 			n = -n;
@@ -152,7 +156,7 @@ const valueRowToObject = valueRow => {
 
 		return {
 			...acc,
-			[getTypeByAlias(type)]: n
+			[type]: n
 		};
 	}, {});
 };
