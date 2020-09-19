@@ -17,9 +17,9 @@
   "dependencies": {},
   "devDependencies": {
     "eslint-plugin-testcafe": "^0.2.1",
-    "http-server": "^0.12.1",
-    "testcafe": "^1.8.2",
-    "xo": "^0.27.2"
+    "http-server": "^0.12.3",
+    "testcafe": "^1.9.3",
+    "xo": "^0.33.1"
   },
   "bugs": {
     "url": "https://github.com/VovanR/time-calculator/issues"

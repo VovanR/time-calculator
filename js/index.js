@@ -86,37 +86,38 @@ const parseInputValue = value => {
 
 	const valueRowsArray = value.split('\n');
 
-	const valueObjectArray = valueRowsArray.reduce((acc, valueRow) => {
+	const valueObjectArray = [];
+	valueRowsArray.forEach(valueRow => {
 		valueRow = valueRow.trim();
 
 		if (valueRow === '') {
-			return acc;
+			return;
 		}
 
 		const valueRowObject = valueRowToObject(valueRow);
 
 		if (valueRowObject) {
-			acc.push(valueRowObject);
+			valueObjectArray.push(valueRowObject);
 		}
+	});
 
-		return acc;
-	}, []);
+	const valueLuxonArray = valueObjectArray.map(valueObject => valueObjectToLuxon(valueObject));
 
-	const valueLuxonArray = valueObjectArray.map(valueObjectToLuxon);
-
-	const resultLuxon = valueLuxonArray.reduce((acc, i) => {
-		return acc.plus(i);
-	}, luxon.Duration.fromObject({}));
+	let resultLuxon = luxon.Duration.fromObject({});
+	valueLuxonArray.forEach(i => {
+		resultLuxon = resultLuxon.plus(i);
+	});
 
 	const normalizedObject = resultLuxon.normalize().toObject();
 
-	const resultArray = Object.entries(normalizedObject).reduce((acc, [key, value]) => {
+	const resultArray = [];
+	Object.entries(normalizedObject).forEach(([key, value]) => {
 		if (value === 0) {
-			return acc;
+			return;
 		}
 
-		return acc.concat(`${value}${getAliasByType(key)}`);
-	}, []);
+		resultArray.push(`${value}${getAliasByType(key)}`);
+	});
 
 	const resultString = resultArray.join(' ');
 
@@ -135,18 +136,19 @@ const valueRowToObject = valueRow => {
 
 	const valueRowPartsArray = valueRow.split(' ');
 
-	return valueRowPartsArray.reduce((acc, value) => {
+	const result = {};
+	valueRowPartsArray.forEach(value => {
 		const valuePartsMatching = value.match(VALUE_REGEX);
 
 		if (valuePartsMatching === null) {
-			return acc;
+			return;
 		}
 
 		const [, number, typeAlias] = valuePartsMatching;
 
 		const type = getTypeByAlias(typeAlias);
 		if (!type) {
-			return acc;
+			return;
 		}
 
 		let n = Number(number);
@@ -154,11 +156,10 @@ const valueRowToObject = valueRow => {
 			n = -n;
 		}
 
-		return {
-			...acc,
-			[type]: n
-		};
-	}, {});
+		result[type] = n;
+	});
+
+	return result;
 };
 
 const valueObjectToLuxon = valueObject => luxon.Duration.fromObject(valueObject);
@@ -171,10 +172,10 @@ inputElement.addEventListener('change', update);
 inputElement.addEventListener('keydown', autosize);
 
 function autosize() {
-	const el = this;
+	const element = this;
 
 	setTimeout(() => {
-		el.style.cssText = 'height: auto;';
-		el.style.cssText = 'height: ' + el.scrollHeight + 'px';
+		element.style.cssText = 'height: auto;';
+		element.style.cssText = 'height: ' + element.scrollHeight + 'px';
 	}, 0);
 }
