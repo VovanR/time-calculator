@@ -6,7 +6,7 @@
 [![XO code style][codestyle-image]][codestyle-url]
 [![Tested with TestCafe][testcafe-image]][testcafe-url]
 
-[![Build Status][travis-image]][travis-url]
+[![Build Status][build-image]][build-url]
 [![Dependency Status][depstat-image]][depstat-url]
 [![DevDependency Status][depstat-dev-image]][depstat-dev-url]
 
@@ -27,8 +27,8 @@ MIT © [Vladimir Rodkin](https://github.com/VovanR)
 [testcafe-url]: https://github.com/DevExpress/testcafe
 [testcafe-image]: https://img.shields.io/badge/tested%20with-TestCafe-2fa4cf.svg?style=flat-square
 
-[travis-url]: https://travis-ci.org/VovanR/time-calculator
-[travis-image]: https://img.shields.io/travis/VovanR/time-calculator.svg?style=flat-square
+[build-url]: https://github.com/VovanR/time-calculator/actions?query=workflow%3A%22End-to-End+Tests%22
+[build-image]: https://img.shields.io/github/workflow/status/VovanR/time-calculator/End-to-End%20Tests?style=flat-square
 
 [depstat-url]: https://david-dm.org/VovanR/time-calculator
 [depstat-image]: https://david-dm.org/VovanR/time-calculator.svg?style=flat-square
