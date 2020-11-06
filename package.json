@@ -24,7 +24,7 @@
   "bugs": {
     "url": "https://github.com/VovanR/time-calculator/issues"
   },
-  "homepage": "https://github.com/VovanR/time-calculator#readme",
+  "homepage": "https://vovanr.github.io/time-calculator",
   "xo": {
     "envs": [
       "browser"
