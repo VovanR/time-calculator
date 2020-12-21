@@ -7,29 +7,73 @@ class Converter {
 		this._luxonRegister = new Map();
 	}
 
+	/**
+	 * @param {Object[]} types
+	 * @param {string} types[].alias
+	 * @param {string} types[].luxon
+	 * @param {number} types[].factor
+	 */
 	registerTypes(types) {
 		types.forEach(this.registerType.bind(this));
 	}
 
+	/**
+	 * @param {alias} string
+	 * @param {luxon} string
+	 */
 	registerType({alias, luxon}) {
 		this._aliasRegister.set(alias, luxon);
 		this._luxonRegister.set(luxon, alias);
 	}
 
+	/**
+	 * @param {string} luxonType
+	 * @return {string}
+	 */
 	getAliasByLuxonType(luxonType) {
 		return this._luxonRegister.get(luxonType);
 	}
 
+	/**
+	 * @param {string} alias
+	 * @return {string}
+	 */
 	getLuxonTypeByAlias(alias) {
 		return this._aliasRegister.get(alias);
+	}
+
+	/**
+	 * @return {luxon.Duration}
+	 */
+	createEmptyLuxonDuration() {
+		const emptyObject = {};
+		for (const key of this._luxonRegister.keys()) {
+			emptyObject[key] = 0;
+		}
+
+		return luxon.Duration.fromObject(emptyObject);
 	}
 }
 
 const converter = new Converter();
 
-const getTypeByAlias = v => converter.getLuxonTypeByAlias(v);
-const getAliasByType = v => converter.getAliasByLuxonType(v);
+/**
+ * @param {string} value
+ * @return {string}
+ */
+function getTypeByAlias(value) {
+	return converter.getLuxonTypeByAlias(value);
+}
 
+/**
+ * @param {string} value
+ * @return {string}
+ */
+function getAliasByType(value) {
+	return converter.getAliasByLuxonType(value);
+}
+
+// TODO: `factor` is not uset now
 converter.registerTypes([
 	{
 		alias: 'y',
@@ -37,7 +81,7 @@ converter.registerTypes([
 		factor: 365 * 24 * 60 * 60 * 1000
 	},
 	{
-		alias: 'm',
+		alias: 'M',
 		luxon: 'months',
 		factor: 30 * 24 * 60 * 60 * 1000
 	},
@@ -73,13 +117,22 @@ converter.registerTypes([
 	}
 ]);
 
+/**
+ * @const {RegExp}
+ */
 const VALUE_REGEX = /(-?\d+)(\w+)/;
 
-const update = () => {
+function update() {
 	outputElement.value = parseInputValue(inputElement.value);
-};
+}
 
-const parseInputValue = value => {
+/**
+ * @param {string} value
+ * @return {string}
+ */
+function parseInputValue(value) {
+	value = value.trim();
+
 	if (value === '') {
 		return '';
 	}
@@ -103,12 +156,13 @@ const parseInputValue = value => {
 
 	const valueLuxonArray = valueObjectArray.map(valueObject => valueObjectToLuxon(valueObject));
 
-	let resultLuxon = luxon.Duration.fromObject({});
+	let resultLuxon = converter.createEmptyLuxonDuration();
 	valueLuxonArray.forEach(i => {
 		resultLuxon = resultLuxon.plus(i);
 	});
 
-	const normalizedObject = resultLuxon.normalize().toObject();
+	// Double normalize to fix extra negate minutes
+	const normalizedObject = resultLuxon.normalize().normalize().toObject();
 
 	const resultArray = [];
 	Object.entries(normalizedObject).forEach(([key, value]) => {
@@ -126,9 +180,13 @@ const parseInputValue = value => {
 	}
 
 	return '0';
-};
+}
 
-const valueRowToObject = valueRow => {
+/**
+ * @param {string} valueRow
+ * @return {Object.<string, number>}
+ */
+function valueRowToObject(valueRow) {
 	const isNegative = valueRow.startsWith('-');
 	if (isNegative) {
 		valueRow = valueRow.slice(1);
@@ -160,11 +218,17 @@ const valueRowToObject = valueRow => {
 	});
 
 	return result;
-};
+}
 
-const valueObjectToLuxon = valueObject => luxon.Duration.fromObject(valueObject);
+/**
+ * @param {Object} valueObject
+ * @return {luxon.Duration}
+ */
+function valueObjectToLuxon(valueObject) {
+	return luxon.Duration.fromObject(valueObject);
+}
 
-update(inputElement.value);
+update();
 
 inputElement.addEventListener('input', update);
 inputElement.addEventListener('change', update);
@@ -176,6 +240,6 @@ function autosize() {
 
 	setTimeout(() => {
 		element.style.cssText = 'height: auto;';
-		element.style.cssText = 'height: ' + element.scrollHeight + 'px';
+		element.style.cssText = `height: ${element.scrollHeight}px`;
 	}, 0);
 }

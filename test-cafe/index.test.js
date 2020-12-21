@@ -37,6 +37,30 @@ test('should calculate input time', async t => {
 		.expect(outputElement.value).eql('50m');
 });
 
+test('should minutes to hours', async t => {
+	const inputText = `20m
+25m
+30m`;
+
+	await t
+		.typeText(inputElement, inputText)
+		.expect(outputElement.value).eql('1h 15m');
+});
+
+test('should calculate extra minutes', async t => {
+	const inputText = `40h
+40h
+24h
+
+-37h 20m
+-38h 25m
+-24h 30m`;
+
+	await t
+		.typeText(inputElement, inputText)
+		.expect(outputElement.value).eql('3h 45m');
+});
+
 test('should respect time labels', async t => {
 	const inputText = `shower 20m
 dress 10m
@@ -47,7 +71,7 @@ make coffee 10m`;
 
 	await t
 		.typeText(inputElement, inputText)
-		.expect(outputElement.value).eql('95m');
+		.expect(outputElement.value).eql('1h 35m');
 });
 
 test('should show zero result', async t => {
