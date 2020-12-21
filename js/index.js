@@ -41,6 +41,18 @@ class Converter {
 	getLuxonTypeByAlias(alias) {
 		return this._aliasRegister.get(alias);
 	}
+
+	/**
+	 * @return {luxon.Duration}
+	 */
+	createEmptyLuxonDuration() {
+		const emptyObject = {};
+		for (const key of this._luxonRegister.keys()) {
+			emptyObject[key] = 0;
+		}
+
+		return luxon.Duration.fromObject(emptyObject);
+	}
 }
 
 const converter = new Converter();
@@ -69,7 +81,7 @@ converter.registerTypes([
 		factor: 365 * 24 * 60 * 60 * 1000
 	},
 	{
-		alias: 'm',
+		alias: 'M',
 		luxon: 'months',
 		factor: 30 * 24 * 60 * 60 * 1000
 	},
@@ -144,12 +156,13 @@ function parseInputValue(value) {
 
 	const valueLuxonArray = valueObjectArray.map(valueObject => valueObjectToLuxon(valueObject));
 
-	let resultLuxon = luxon.Duration.fromObject({});
+	let resultLuxon = converter.createEmptyLuxonDuration();
 	valueLuxonArray.forEach(i => {
 		resultLuxon = resultLuxon.plus(i);
 	});
 
-	const normalizedObject = resultLuxon.normalize().toObject();
+	// Double normalize to fix extra negate minutes
+	const normalizedObject = resultLuxon.normalize().normalize().toObject();
 
 	const resultArray = [];
 	Object.entries(normalizedObject).forEach(([key, value]) => {
@@ -215,7 +228,7 @@ function valueObjectToLuxon(valueObject) {
 	return luxon.Duration.fromObject(valueObject);
 }
 
-update(inputElement.value);
+update();
 
 inputElement.addEventListener('input', update);
 inputElement.addEventListener('change', update);
