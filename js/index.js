@@ -14,7 +14,9 @@ class Converter {
 	 * @param {number} types[].factor
 	 */
 	registerTypes(types) {
-		types.forEach(this.registerType.bind(this));
+		for (const {alias, luxon} of types) {
+			this.registerType({alias, luxon});
+		}
 	}
 
 	/**
@@ -140,11 +142,11 @@ function parseInputValue(value) {
 	const valueRowsArray = value.split('\n');
 
 	const valueObjectArray = [];
-	valueRowsArray.forEach(valueRow => {
+	for (let valueRow of valueRowsArray) {
 		valueRow = valueRow.trim();
 
 		if (valueRow === '') {
-			return;
+			continue;
 		}
 
 		const valueRowObject = valueRowToObject(valueRow);
@@ -152,26 +154,26 @@ function parseInputValue(value) {
 		if (valueRowObject) {
 			valueObjectArray.push(valueRowObject);
 		}
-	});
+	}
 
 	const valueLuxonArray = valueObjectArray.map(valueObject => valueObjectToLuxon(valueObject));
 
 	let resultLuxon = converter.createEmptyLuxonDuration();
-	valueLuxonArray.forEach(i => {
+	for (const i of valueLuxonArray) {
 		resultLuxon = resultLuxon.plus(i);
-	});
+	}
 
 	// Double normalize to fix extra negate minutes
 	const normalizedObject = resultLuxon.normalize().normalize().toObject();
 
 	const resultArray = [];
-	Object.entries(normalizedObject).forEach(([key, value]) => {
+	for (const [key, value] of Object.entries(normalizedObject)) {
 		if (value === 0) {
-			return;
+			continue;
 		}
 
 		resultArray.push(`${value}${getAliasByType(key)}`);
-	});
+	}
 
 	const resultString = resultArray.join(' ');
 
@@ -195,18 +197,18 @@ function valueRowToObject(valueRow) {
 	const valueRowPartsArray = valueRow.split(' ');
 
 	const result = {};
-	valueRowPartsArray.forEach(value => {
+	for (const value of valueRowPartsArray) {
 		const valuePartsMatching = value.match(VALUE_REGEX);
 
 		if (valuePartsMatching === null) {
-			return;
+			continue;
 		}
 
 		const [, number, typeAlias] = valuePartsMatching;
 
 		const type = getTypeByAlias(typeAlias);
 		if (!type) {
-			return;
+			continue;
 		}
 
 		let n = Number(number);
@@ -215,7 +217,7 @@ function valueRowToObject(valueRow) {
 		}
 
 		result[type] = n;
-	});
+	}
 
 	return result;
 }
@@ -236,10 +238,8 @@ inputElement.addEventListener('change', update);
 inputElement.addEventListener('keydown', autosize);
 
 function autosize() {
-	const element = this;
-
 	setTimeout(() => {
-		element.style.cssText = 'height: auto;';
-		element.style.cssText = `height: ${element.scrollHeight}px`;
+		this.style.cssText = 'height: auto;';
+		this.style.cssText = `height: ${this.scrollHeight}px`;
 	}, 0);
 }
