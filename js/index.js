@@ -80,43 +80,43 @@ converter.registerTypes([
 	{
 		alias: 'y',
 		luxon: 'years',
-		factor: 365 * 24 * 60 * 60 * 1000
+		factor: 365 * 24 * 60 * 60 * 1000,
 	},
 	{
 		alias: 'M',
 		luxon: 'months',
-		factor: 30 * 24 * 60 * 60 * 1000
+		factor: 30 * 24 * 60 * 60 * 1000,
 	},
 	{
 		alias: 'w',
 		luxon: 'weeks',
-		factor: 7 * 24 * 60 * 60 * 1000
+		factor: 7 * 24 * 60 * 60 * 1000,
 	},
 	{
 		alias: 'd',
 		luxon: 'days',
-		factor: 24 * 60 * 60 * 1000
+		factor: 24 * 60 * 60 * 1000,
 	},
 	{
 		alias: 'h',
 		luxon: 'hours',
-		factor: 60 * 60 * 1000
+		factor: 60 * 60 * 1000,
 	},
 	{
 		alias: 'm',
 		luxon: 'minutes',
-		factor: 60 * 1000
+		factor: 60 * 1000,
 	},
 	{
 		alias: 's',
 		luxon: 'seconds',
-		factor: 1000
+		factor: 1000,
 	},
 	{
 		alias: 'ms',
 		luxon: 'milliseconds',
-		factor: 1
-	}
+		factor: 1,
+	},
 ]);
 
 /**
