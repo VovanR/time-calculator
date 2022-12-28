@@ -7,8 +7,6 @@
 [![Tested with TestCafe][testcafe-image]][testcafe-url]
 
 [![Build Status][build-image]][build-url]
-[![Dependency Status][depstat-image]][depstat-url]
-[![DevDependency Status][depstat-dev-image]][depstat-dev-url]
 
 > Calculate time durations
 
@@ -29,9 +27,3 @@ MIT © [Vladimir Rodkin](https://github.com/VovanR)
 
 [build-url]: https://github.com/VovanR/time-calculator/actions?query=workflow%3A%22End-to-End+Tests%22
 [build-image]: https://img.shields.io/github/workflow/status/VovanR/time-calculator/End-to-End%20Tests?style=flat-square
-
-[depstat-url]: https://david-dm.org/VovanR/time-calculator
-[depstat-image]: https://david-dm.org/VovanR/time-calculator.svg?style=flat-square
-
-[depstat-dev-url]: https://david-dm.org/VovanR/time-calculator
-[depstat-dev-image]: https://david-dm.org/VovanR/time-calculator/dev-status.svg?style=flat-square
