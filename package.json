@@ -18,7 +18,7 @@
     "eslint-plugin-testcafe": "^0.2.1",
     "http-server": "^14.1.1",
     "testcafe": "^2.4.0",
-    "xo": "^0.53.1"
+    "xo": "^0.54.1"
   },
   "bugs": {
     "url": "https://github.com/VovanR/time-calculator/issues"
